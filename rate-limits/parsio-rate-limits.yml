@@ -1,0 +1,69 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Parsio
+providerId: parsio
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- AI
+- Document Parsing
+- Email Parsing
+- OCR
+- Data Extraction
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Parsio gates usage primarily through a monthly credit quota tied to the
+  subscription plan rather than published per-second request rate limits. A credit
+  is consumed the first time a document or email is parsed, with 1, 2, or more
+  credits per document/page depending on the parser engine. When credits are
+  exhausted, documents are queued with a quota status rather than parsed. File
+  size limits apply per upload endpoint (20MB synchronous, 50MB asynchronous).
+  Specific per-account request-per-second rate limits are not publicly documented
+  and are not reconciled in this artifact.
+notes: >-
+  The credit quota is the primary throttle; confirm any per-second / per-minute
+  HTTP request limits with Parsio support on reconciliation. Unauthenticated
+  requests return HTTP 401.
+sources:
+- https://help.parsio.io/public-api/parsio-public-api
+- https://parsio.io/pricing/
+responseCodes:
+  unauthorized: 401
+limits:
+- name: Monthly Credit Quota
+  scope: account
+  metric: credits
+  limit: see plan
+  notes: Credits granted per billing period by plan; one parse consumes 1+ credits by engine. Unused credits expire.
+- name: Document Quota Exhaustion
+  scope: account
+  metric: documents
+  limit: bounded by available credits
+  notes: When credits run out, new documents receive a quota status instead of being parsed.
+- name: Synchronous Upload File Size
+  scope: request
+  metric: bytes
+  limit: 20MB
+  notes: Applies to POST /mailboxes/{mailbox_id}/upload-sync (single file).
+- name: Asynchronous Upload File Size
+  scope: request
+  metric: bytes
+  limit: 50MB
+  notes: Applies to POST /mailboxes/{mailbox_id}/upload (ZIP archives supported).
+- name: Document Listing Page Size
+  scope: request
+  metric: records
+  limit: 500
+  notes: Maximum per_page value on GET /mailboxes/{mailbox_id}/docs.
+policies:
+- name: Credit-Based Quota
+  description: Usage is metered in credits by plan; higher tiers grant more monthly credits.
+- name: Backoff Strategy
+  description: Clients should implement retries with exponential backoff and prefer asynchronous upload plus webhooks for large or bulk jobs.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

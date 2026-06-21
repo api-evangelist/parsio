@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parsio Public API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{apiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mailboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List all mailboxes.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes" },
+          "docs": "Retrieves all mailboxes (parsers) for the authenticated account."
+        },
+        {
+          "info": { "name": "Create a new mailbox.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/create",
+            "body": { "type": "json", "data": "{\n  \"name\": \"<string>\",\n  \"preset\": \"<string>\",\n  \"ml_model\": \"<string>\",\n  \"has_raw_data\": false,\n  \"parse_sig\": false\n}" }
+          },
+          "docs": "Creates a new mailbox (parser) bound to a parsing engine and preset."
+        },
+        {
+          "info": { "name": "Get a mailbox.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}" },
+          "docs": "Fetches the settings of a specific mailbox by its ID."
+        },
+        {
+          "info": { "name": "Update a mailbox.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}",
+            "body": { "type": "json", "data": "{\n  \"name\": \"<string>\",\n  \"email_prefix\": \"<string>\",\n  \"process_attachments\": false,\n  \"collect_emails\": false,\n  \"receive_email\": true,\n  \"preset\": \"<string>\",\n  \"ml_model\": \"<string>\"\n}" }
+          },
+          "docs": "Updates the configuration of an existing mailbox."
+        },
+        {
+          "info": { "name": "Delete a mailbox.", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}" },
+          "docs": "Removes a mailbox and its associated configuration."
+        },
+        {
+          "info": { "name": "List table fields.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/tableFields" },
+          "docs": "Lists the table fields configured for a mailbox."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Parse an HTML or text document synchronously.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/doc-sync",
+            "body": { "type": "json", "data": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {}\n}" }
+          },
+          "docs": "Submits an HTML or plain-text document and waits for the parsing result."
+        },
+        {
+          "info": { "name": "Parse an HTML or text document asynchronously.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/doc",
+            "body": { "type": "json", "data": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"meta\": {}\n}" }
+          },
+          "docs": "Submits an HTML or plain-text document for background parsing and returns immediately."
+        },
+        {
+          "info": { "name": "Upload a file and wait for the parsing result.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/upload-sync",
+            "body": { "type": "multipart-form", "data": [] }
+          },
+          "docs": "Uploads a single file (up to 20MB) and waits for the parsing result."
+        },
+        {
+          "info": { "name": "Upload a file for asynchronous parsing.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/upload",
+            "body": { "type": "multipart-form", "data": [] }
+          },
+          "docs": "Uploads a file (up to 50MB, ZIP supported) for background parsing."
+        },
+        {
+          "info": { "name": "List documents.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/docs?page=1&per_page=50" },
+          "docs": "Lists documents in a mailbox with pagination and filters."
+        },
+        {
+          "info": { "name": "Skip documents.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/docs/skip",
+            "body": { "type": "json", "data": "{\n  \"ids\": []\n}" }
+          },
+          "docs": "Marks multiple documents as skipped."
+        },
+        {
+          "info": { "name": "Get a parsed document.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/docs/{{document_id}}" },
+          "docs": "Retrieves a document and its extracted structured JSON by ID."
+        },
+        {
+          "info": { "name": "Reparse a document.", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.parsio.io/docs/{{document_id}}/parse" },
+          "docs": "Reprocesses an existing document with the mailbox's current parser."
+        },
+        {
+          "info": { "name": "Retrieve parsed data.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/parsed?page=1" },
+          "docs": "Retrieves the parsed data for a mailbox's documents."
+        },
+        {
+          "info": { "name": "Get collected email addresses.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/emails" },
+          "docs": "Returns the email addresses collected by a mailbox."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List templates.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/mailboxes/{{mailbox_id}}/templates?page=1" },
+          "docs": "Lists the parsing templates configured for a mailbox."
+        },
+        {
+          "info": { "name": "Get a template.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/templates/{{template_id}}" },
+          "docs": "Retrieves the details of a parsing template."
+        },
+        {
+          "info": { "name": "Enable templates.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/enable_many",
+            "body": { "type": "json", "data": "{\n  \"ids\": []\n}" }
+          },
+          "docs": "Activates multiple parsing templates."
+        },
+        {
+          "info": { "name": "Disable templates.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/disable_many",
+            "body": { "type": "json", "data": "{\n  \"ids\": []\n}" }
+          },
+          "docs": "Deactivates multiple parsing templates."
+        },
+        {
+          "info": { "name": "Clone templates.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/clone_many",
+            "body": { "type": "json", "data": "{\n  \"ids\": [],\n  \"mailbox_id\": \"<string>\"\n}" }
+          },
+          "docs": "Duplicates multiple parsing templates into a target mailbox."
+        },
+        {
+          "info": { "name": "Delete templates.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parsio.io/templates",
+            "body": { "type": "json", "data": "{\n  \"ids\": []\n}" }
+          },
+          "docs": "Removes multiple parsing templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List webhooks for a mailbox.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/webhooks/mb/{{mailbox_id}}" },
+          "docs": "Lists the webhooks configured for a mailbox."
+        },
+        {
+          "info": { "name": "Get a webhook.", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.parsio.io/webhooks/{{webhook_id}}" },
+          "docs": "Retrieves the details of a webhook."
+        },
+        {
+          "info": { "name": "Create a webhook.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/webhooks/{{mailbox_id}}",
+            "body": { "type": "json", "data": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"event\": \"doc.parsed\",\n  \"enabled\": true,\n  \"table_id\": \"<string>\"\n}" }
+          },
+          "docs": "Creates a webhook bound to a mailbox for real-time parsed-data delivery."
+        },
+        {
+          "info": { "name": "Update a webhook.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/webhooks",
+            "body": { "type": "json", "data": "{\n  \"_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"event\": \"doc.parsed\",\n  \"enabled\": true,\n  \"table_id\": \"<string>\"\n}" }
+          },
+          "docs": "Updates an existing webhook identified by its _id."
+        },
+        {
+          "info": { "name": "Delete webhooks.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parsio.io/webhooks",
+            "body": { "type": "json", "data": "{\n  \"ids\": []\n}" }
+          },
+          "docs": "Removes multiple webhooks."
+        }
+      ]
+    }
+  ]
+}

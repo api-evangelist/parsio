@@ -1,0 +1,101 @@
+aid: parsio
+name: Parsio
+review:
+  question: Does Parsio expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Parsio's only event-driven surface is
+    outbound HTTP webhooks (server-to-server callbacks the customer registers
+    and receives), not a client-consumable streaming transport. There is no
+    documented WebSocket (ws:// / wss://) endpoint and no HTTP Server-Sent
+    Events (SSE) stream. Outbound webhooks are modeled as REST resources in the
+    OpenAPI document rather than as an AsyncAPI channel.
+findings:
+  summary: |
+    Parsio does not publish a documented public WebSocket or streaming API. The
+    Parsio public API is REST (HTTPS) only, under https://api.parsio.io, with
+    API-key authentication via the X-API-Key header. Real-time parsed-data
+    delivery is provided through outbound HTTP webhooks that the customer
+    configures per mailbox; Parsio POSTs parsed payloads to the customer's URL
+    on events such as doc.parsed, doc.parsed.flat, doc.fail, doc.received, and
+    table.parsed. Synchronous parsing endpoints (doc-sync, upload-sync) return
+    results inline in the HTTP response rather than over a persistent stream.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.parsio.io
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callbacks to a customer-registered URL on document/table events. Server-to-server, not a client-consumable stream.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events stream is documented; synchronous endpoints return results inline.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Parsio's public API knowledge base as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://api.parsio.io/mailboxes
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}
+    - POST https://api.parsio.io/mailboxes/create
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}
+    - DELETE https://api.parsio.io/mailboxes/{mailbox_id}
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}/tableFields
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}/doc-sync
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}/doc
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}/upload-sync
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}/upload
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}/docs
+    - POST https://api.parsio.io/mailboxes/{mailbox_id}/docs/skip
+    - GET  https://api.parsio.io/docs/{document_id}
+    - POST https://api.parsio.io/docs/{document_id}/parse
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}/parsed
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}/emails
+    - GET  https://api.parsio.io/mailboxes/{mailbox_id}/templates
+    - GET  https://api.parsio.io/templates/{template_id}
+    - POST https://api.parsio.io/templates/enable_many
+    - POST https://api.parsio.io/templates/disable_many
+    - POST https://api.parsio.io/templates/clone_many
+    - DELETE https://api.parsio.io/templates
+    - GET  https://api.parsio.io/webhooks/mb/{mailbox_id}
+    - GET  https://api.parsio.io/webhooks/{webhook_id}
+    - POST https://api.parsio.io/webhooks/{mailbox_id}
+    - POST https://api.parsio.io/webhooks
+    - DELETE https://api.parsio.io/webhooks
+  webhookEvents:
+    - doc.parsed
+    - doc.parsed.flat
+    - doc.fail
+    - doc.received
+    - table.parsed
+sources:
+  - url: https://help.parsio.io/public-api/parsio-public-api
+    type: Documentation
+    note: Lists REST base URL https://api.parsio.io and X-API-Key auth; no WebSocket mentioned.
+  - url: https://help.parsio.io/public-api
+    type: APIReference
+    note: All documented endpoints are HTTPS REST; real-time delivery is via outbound webhooks.
+  - url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
+    type: Documentation
+    note: Upload endpoints return parsed JSON inline (sync) or accept for background processing (async); no streaming transport.
+  - url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
+    type: Documentation
+    note: doc-sync returns results inline over HTTPS; doc processes asynchronously with webhook delivery.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists. Parsio's only event-driven
+    mechanism is outbound HTTP webhooks, which are server-to-server callbacks
+    and are modeled as REST resources in the OpenAPI document. No AsyncAPI
+    document was authored because there is no client-consumable streaming
+    channel to model.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

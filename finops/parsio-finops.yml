@@ -1,0 +1,108 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Parsio
+providerId: parsio
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- AI
+- Document Parsing
+- Email Parsing
+- OCR
+- Data Extraction
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Parsio spend. Parsio bills on a credit-based subscription: each
+  plan grants a fixed monthly credit allotment, and a credit is consumed the first
+  time a document or email is parsed. One parsed document or PDF page costs 1, 2,
+  or more credits depending on the parser engine (template, AI, GPT, or AI OCR).
+  Unused credits expire at the end of each billing period, so cost optimization
+  centers on right-sizing the plan, choosing the cheapest sufficient engine, and
+  fully consuming the monthly allotment.
+notes: >-
+  Plan prices and credit allotments are subject to change; verify against the
+  Parsio pricing page during reconciliation. Per-engine credit multipliers
+  determine effective cost per document.
+sources:
+- https://parsio.io/pricing/
+- https://help.parsio.io/public-api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Parsio
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Parsio
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Parsio
+  PublisherName: Parsio
+  InvoiceIssuerName: Parsio
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: credits_consumed
+  description: Credits consumed when a document or email is parsed for the first time.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - mailbox
+  - parser_engine
+- name: documents_parsed
+  description: Count of documents and emails parsed, each consuming 1+ credits by engine.
+  unit: documents
+  aggregation: sum
+  dimensions:
+  - account
+  - mailbox
+- name: pdf_pages_parsed
+  description: PDF pages parsed, billed per page at the engine's credit multiplier.
+  unit: pages
+  aggregation: sum
+  dimensions:
+  - account
+  - mailbox
+  - parser_engine
+- name: plan_subscription
+  description: Recurring monthly or annual subscription charge granting the credit allotment.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: credits_expired
+  description: Unused credits that expired at the end of the billing period (waste signal).
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: Track credits consumed per mailbox and parser engine; monitor credits expired as a waste signal.
+- name: Allocation
+  description: Use one mailbox per workload/team to attribute credit consumption to cost centers.
+- name: Optimization
+  description: Right-size the plan to actual document volume, choose the lowest-cost engine that meets accuracy needs (template before AI/GPT/OCR), and consume the full monthly allotment before it expires.
+- name: Accountability
+  description: Assign owners per mailbox; review monthly credit burn and plan fit against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

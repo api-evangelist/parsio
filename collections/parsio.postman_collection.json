@@ -1,0 +1,303 @@
+{
+  "info": {
+    "name": "Parsio Public API",
+    "description": "Parsio public REST API for AI-powered document and email parsing. Manage mailboxes (parsers), upload and parse documents and emails, retrieve extracted structured JSON, manage parsing templates, and configure webhooks. Authenticate with an API key via the X-API-Key header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "X-API-Key" },
+      { "key": "value", "value": "{{apiKey}}" },
+      { "key": "in", "value": "header" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.parsio.io" },
+    { "key": "apiKey", "value": "" },
+    { "key": "mailbox_id", "value": "" },
+    { "key": "document_id", "value": "" },
+    { "key": "template_id", "value": "" },
+    { "key": "webhook_id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Mailboxes",
+      "item": [
+        {
+          "name": "List all mailboxes.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/mailboxes", "host": ["{{baseUrl}}"], "path": ["mailboxes"] }
+          }
+        },
+        {
+          "name": "Create a new mailbox.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\",\n  \"preset\": \"<string>\",\n  \"ml_model\": \"<string>\",\n  \"has_raw_data\": false,\n  \"parse_sig\": false\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/mailboxes/create", "host": ["{{baseUrl}}"], "path": ["mailboxes", "create"] }
+          }
+        },
+        {
+          "name": "Get a mailbox.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}"] }
+          }
+        },
+        {
+          "name": "Update a mailbox.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\",\n  \"email_prefix\": \"<string>\",\n  \"process_attachments\": false,\n  \"collect_emails\": false,\n  \"receive_email\": true,\n  \"preset\": \"<string>\",\n  \"ml_model\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}"] }
+          }
+        },
+        {
+          "name": "Delete a mailbox.",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}"] }
+          }
+        },
+        {
+          "name": "List table fields.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/tableFields", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "tableFields"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "Parse an HTML or text document synchronously.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {}\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/doc-sync", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "doc-sync"] }
+          }
+        },
+        {
+          "name": "Parse an HTML or text document asynchronously.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"meta\": {}\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/doc", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "doc"] }
+          }
+        },
+        {
+          "name": "Upload a file and wait for the parsing result.",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [
+              { "key": "file", "type": "file", "src": [] },
+              { "key": "meta", "type": "text", "value": "{}" }
+            ] },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/upload-sync", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "upload-sync"] }
+          }
+        },
+        {
+          "name": "Upload a file for asynchronous parsing.",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [
+              { "key": "file", "type": "file", "src": [] },
+              { "key": "meta", "type": "text", "value": "{}" }
+            ] },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/upload", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "upload"] }
+          }
+        },
+        {
+          "name": "List documents.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/docs?page=1&per_page=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["mailboxes", "{{mailbox_id}}", "docs"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "per_page", "value": "50" },
+                { "key": "from", "value": "", "disabled": true },
+                { "key": "to", "value": "", "disabled": true },
+                { "key": "q", "value": "", "disabled": true },
+                { "key": "status", "value": "parsed", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Skip documents.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/docs/skip", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "docs", "skip"] }
+          }
+        },
+        {
+          "name": "Get a parsed document.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/docs/{{document_id}}", "host": ["{{baseUrl}}"], "path": ["docs", "{{document_id}}"] }
+          }
+        },
+        {
+          "name": "Reparse a document.",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/docs/{{document_id}}/parse", "host": ["{{baseUrl}}"], "path": ["docs", "{{document_id}}", "parse"] }
+          }
+        },
+        {
+          "name": "Retrieve parsed data.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/parsed?page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["mailboxes", "{{mailbox_id}}", "parsed"],
+              "query": [{ "key": "page", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "Get collected email addresses.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/emails", "host": ["{{baseUrl}}"], "path": ["mailboxes", "{{mailbox_id}}", "emails"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "item": [
+        {
+          "name": "List templates.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/mailboxes/{{mailbox_id}}/templates?page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["mailboxes", "{{mailbox_id}}", "templates"],
+              "query": [{ "key": "page", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "Get a template.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/templates/{{template_id}}", "host": ["{{baseUrl}}"], "path": ["templates", "{{template_id}}"] }
+          }
+        },
+        {
+          "name": "Enable templates.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/templates/enable_many", "host": ["{{baseUrl}}"], "path": ["templates", "enable_many"] }
+          }
+        },
+        {
+          "name": "Disable templates.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/templates/disable_many", "host": ["{{baseUrl}}"], "path": ["templates", "disable_many"] }
+          }
+        },
+        {
+          "name": "Clone templates.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": [],\n  \"mailbox_id\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/templates/clone_many", "host": ["{{baseUrl}}"], "path": ["templates", "clone_many"] }
+          }
+        },
+        {
+          "name": "Delete templates.",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/templates", "host": ["{{baseUrl}}"], "path": ["templates"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhooks for a mailbox.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/mb/{{mailbox_id}}", "host": ["{{baseUrl}}"], "path": ["webhooks", "mb", "{{mailbox_id}}"] }
+          }
+        },
+        {
+          "name": "Get a webhook.",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/{{webhook_id}}", "host": ["{{baseUrl}}"], "path": ["webhooks", "{{webhook_id}}"] }
+          }
+        },
+        {
+          "name": "Create a webhook.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"event\": \"doc.parsed\",\n  \"enabled\": true,\n  \"table_id\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks/{{mailbox_id}}", "host": ["{{baseUrl}}"], "path": ["webhooks", "{{mailbox_id}}"] }
+          }
+        },
+        {
+          "name": "Update a webhook.",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"_id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"event\": \"doc.parsed\",\n  \"enabled\": true,\n  \"table_id\": \"<string>\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        },
+        {
+          "name": "Delete webhooks.",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ids\": []\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        }
+      ]
+    }
+  ]
+}

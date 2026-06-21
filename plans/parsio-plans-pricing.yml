@@ -1,0 +1,163 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Parsio
+providerId: parsio
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- AI
+- Document Parsing
+- Email Parsing
+- OCR
+- Data Extraction
+- Plans
+description: >-
+  Parsio uses a credit-based subscription model. Each account is credited every
+  month according to its plan, and a credit is consumed the first time a document
+  or email is parsed. One parsed document or PDF page costs 1, 2, or more credits
+  depending on the parser type (template, AI, GPT, or AI OCR). Unused credits
+  expire at the end of each billing period. API access and webhooks are available
+  on higher paid tiers. Annual billing offers roughly 17% savings versus monthly.
+notes: >-
+  Plan names, prices, and included credit counts are taken from the public Parsio
+  pricing page and may change; verify current tiers and credit allotments at
+  parsio.io/pricing on reconciliation. Credit-per-document multipliers vary by
+  parser engine.
+sources:
+- https://parsio.io/pricing/
+- https://help.parsio.io/public-api
+plans:
+- id: parsio-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Free plan for testing with all four parser engines, unlimited mailboxes, and a
+    one-time credit grant.
+  entries:
+  - label: Included Credits
+    name: credits
+    type: usage
+    metric: credits
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: flat
+    metric: days
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Template Parser
+  - name: AI Parser
+  - name: GPT Parser
+  - name: AI OCR
+  - name: Unlimited Mailboxes
+  - name: Google Sheets Sync
+- id: parsio-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry paid plan with monthly credits, advanced post-processing, and
+    Excel/CSV/Google Sheets exports.
+  entries:
+  - label: Included Credits
+    name: credits
+    type: usage
+    metric: credits
+    limit: 1000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $24/month ($290/year)
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: flat
+    metric: days
+    limit: 90
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: All Parser Engines
+  - name: Advanced Post-Processing
+  - name: Excel / CSV / Google Sheets Exports
+- id: parsio-growth
+  name: Growth
+  type: subscription
+  description: >-
+    Most popular plan with higher monthly credits, integrations, unlimited team
+    members, and priority support.
+  entries:
+  - label: Included Credits
+    name: credits
+    type: usage
+    metric: credits
+    limit: 5000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $124/month ($1,490/year)
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: flat
+    metric: days
+    limit: 90
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: All Parser Engines
+  - name: Integrations (Zapier, Make)
+  - name: Unlimited Team Members
+  - name: Priority Support
+- id: parsio-business
+  name: Business
+  type: subscription
+  description: >-
+    Highest tier with large monthly credit allotments, webhooks, API access,
+    extended retention, and priority support.
+  entries:
+  - label: Included Credits
+    name: credits
+    type: usage
+    metric: credits
+    limit: 100000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $249/month ($2,990/year)
+    userMultiplied: false
+  - label: Data Retention
+    name: data_retention
+    type: flat
+    metric: days
+    limit: 180
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: All Parser Engines
+  - name: Webhooks
+  - name: API Access
+  - name: Priority Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
