@@ -81,6 +81,14 @@ apis:
     to receive parsed data in real time. Supported events include doc.parsed,
     doc.parsed.flat, doc.fail, doc.received, and table.parsed.
 common:
+- type: TrustCenter
+  url: security/parsio-trust-center.yml
+- type: DomainSecurity
+  url: security/parsio-domain-security.yml
+- type: Authentication
+  url: authentication/parsio-authentication.yml
+- url: https://parsio.io/blog/feed/
+  type: Blog
 - type: LinkedIn
   url: https://www.linkedin.com/company/parsio
 - type: Website
