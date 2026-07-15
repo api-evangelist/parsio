@@ -81,6 +81,8 @@ apis:
     to receive parsed data in real time. Supported events include doc.parsed,
     doc.parsed.flat, doc.fail, doc.received, and table.parsed.
 common:
+- type: AgenticAccess
+  url: agentic-access/parsio-agentic-access.yml
 - type: TrustCenter
   url: security/parsio-trust-center.yml
 - type: DomainSecurity
