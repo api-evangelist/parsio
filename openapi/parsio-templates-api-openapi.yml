@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  title: Parsio Public Documents Templates API
+  description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
+  termsOfService: https://parsio.io/terms/
+  contact:
+    name: Parsio Support
+    url: https://help.parsio.io
+  version: '1.0'
+servers:
+- url: https://api.parsio.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Templates
+  description: Manage parsing templates attached to a mailbox.
+paths:
+  /mailboxes/{mailbox_id}/templates:
+    parameters:
+    - $ref: '#/components/parameters/MailboxId'
+    get:
+      operationId: listTemplates
+      tags:
+      - Templates
+      summary: List templates.
+      description: Lists the parsing templates configured for a mailbox.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of templates.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/{template_id}:
+    parameters:
+    - $ref: '#/components/parameters/TemplateId'
+    get:
+      operationId: getTemplate
+      tags:
+      - Templates
+      summary: Get a template.
+      description: Retrieves the details of a parsing template.
+      responses:
+        '200':
+          description: The requested template.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/enable_many:
+    post:
+      operationId: enableTemplates
+      tags:
+      - Templates
+      summary: Enable templates.
+      description: Activates multiple parsing templates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdsRequest'
+      responses:
+        '200':
+          description: Templates enabled.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/disable_many:
+    post:
+      operationId: disableTemplates
+      tags:
+      - Templates
+      summary: Disable templates.
+      description: Deactivates multiple parsing templates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdsRequest'
+      responses:
+        '200':
+          description: Templates disabled.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/clone_many:
+    post:
+      operationId: cloneTemplates
+      tags:
+      - Templates
+      summary: Clone templates.
+      description: Duplicates multiple parsing templates into a target mailbox.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+                mailbox_id:
+                  type: string
+      responses:
+        '200':
+          description: Templates cloned.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates:
+    delete:
+      operationId: deleteTemplates
+      tags:
+      - Templates
+      summary: Delete templates.
+      description: Removes multiple parsing templates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdsRequest'
+      responses:
+        '200':
+          description: Templates deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    TemplateId:
+      name: template_id
+      in: path
+      required: true
+      description: The unique identifier of the parsing template.
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    Template:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        mailbox_id:
+          type: string
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

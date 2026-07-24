@@ -1,0 +1,222 @@
+openapi: 3.0.1
+info:
+  title: Parsio Public Documents Webhooks API
+  description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
+  termsOfService: https://parsio.io/terms/
+  contact:
+    name: Parsio Support
+    url: https://help.parsio.io
+  version: '1.0'
+servers:
+- url: https://api.parsio.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Webhooks
+  description: Manage webhooks for real-time parsed-data delivery.
+paths:
+  /webhooks/mb/{mailbox_id}:
+    parameters:
+    - $ref: '#/components/parameters/MailboxId'
+    get:
+      operationId: listWebhooks
+      tags:
+      - Webhooks
+      summary: List webhooks for a mailbox.
+      description: Lists the webhooks configured for a mailbox.
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/{webhook_id}:
+    parameters:
+    - $ref: '#/components/parameters/WebhookId'
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Get a webhook.
+      description: Retrieves the details of a webhook.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/{mailbox_id}:
+    parameters:
+    - $ref: '#/components/parameters/MailboxId'
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook.
+      description: Creates a webhook bound to a mailbox for real-time parsed-data delivery.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks:
+    post:
+      operationId: updateWebhook
+      tags:
+      - Webhooks
+      summary: Update a webhook.
+      description: Updates an existing webhook identified by its _id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+      responses:
+        '200':
+          description: The updated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteWebhooks
+      tags:
+      - Webhooks
+      summary: Delete webhooks.
+      description: Removes multiple webhooks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdsRequest'
+      responses:
+        '200':
+          description: Webhooks deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: The unique identifier of the webhook.
+      schema:
+        type: string
+  schemas:
+    UpdateWebhookRequest:
+      type: object
+      required:
+      - _id
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        event:
+          $ref: '#/components/schemas/WebhookEvent'
+        enabled:
+          type: boolean
+        table_id:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    CreateWebhookRequest:
+      type: object
+      required:
+      - url
+      - event
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        event:
+          $ref: '#/components/schemas/WebhookEvent'
+        enabled:
+          type: boolean
+        table_id:
+          type: string
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    WebhookEvent:
+      type: string
+      enum:
+      - doc.parsed
+      - doc.parsed.flat
+      - doc.fail
+      - doc.received
+      - table.parsed
+    Webhook:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        event:
+          $ref: '#/components/schemas/WebhookEvent'
+        enabled:
+          type: boolean
+        table_id:
+          type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

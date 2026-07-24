@@ -1,0 +1,229 @@
+openapi: 3.0.1
+info:
+  title: Parsio Public Documents Mailboxes API
+  description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
+  termsOfService: https://parsio.io/terms/
+  contact:
+    name: Parsio Support
+    url: https://help.parsio.io
+  version: '1.0'
+servers:
+- url: https://api.parsio.io
+security:
+- ApiKeyAuth: []
+tags:
+- name: Mailboxes
+  description: Create and manage mailboxes (parsers) and their table fields.
+paths:
+  /mailboxes:
+    get:
+      operationId: listMailboxes
+      tags:
+      - Mailboxes
+      summary: List all mailboxes.
+      description: Retrieves all mailboxes (parsers) for the authenticated account.
+      responses:
+        '200':
+          description: A list of mailboxes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mailbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /mailboxes/create:
+    post:
+      operationId: createMailbox
+      tags:
+      - Mailboxes
+      summary: Create a new mailbox.
+      description: Creates a new mailbox (parser) bound to a parsing engine and preset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMailboxRequest'
+      responses:
+        '200':
+          description: The created mailbox.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /mailboxes/{mailbox_id}:
+    parameters:
+    - $ref: '#/components/parameters/MailboxId'
+    get:
+      operationId: getMailbox
+      tags:
+      - Mailboxes
+      summary: Get a mailbox.
+      description: Fetches the settings of a specific mailbox by its ID.
+      responses:
+        '200':
+          description: The requested mailbox.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: updateMailbox
+      tags:
+      - Mailboxes
+      summary: Update a mailbox.
+      description: Updates the configuration of an existing mailbox.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMailboxRequest'
+      responses:
+        '200':
+          description: The updated mailbox.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailbox'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteMailbox
+      tags:
+      - Mailboxes
+      summary: Delete a mailbox.
+      description: Removes a mailbox and its associated configuration.
+      responses:
+        '200':
+          description: Mailbox deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /mailboxes/{mailbox_id}/tableFields:
+    parameters:
+    - $ref: '#/components/parameters/MailboxId'
+    get:
+      operationId: listTableFields
+      tags:
+      - Mailboxes
+      summary: List table fields.
+      description: Lists the table fields configured for a mailbox.
+      responses:
+        '200':
+          description: A list of table fields.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+  schemas:
+    UpdateMailboxRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email_prefix:
+          type: string
+        process_attachments:
+          type: boolean
+        collect_emails:
+          type: boolean
+        alert_email_h:
+          type: boolean
+        receive_email:
+          type: boolean
+        preset:
+          type: string
+        ml_model:
+          type: string
+    TableField:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    Mailbox:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        email_prefix:
+          type: string
+          description: The inbound email address prefix for this mailbox.
+        preset:
+          type: string
+          description: The parsing preset/engine bound to the mailbox.
+        ml_model:
+          type: string
+          description: The AI/ML model used by AI or GPT parsers.
+        has_raw_data:
+          type: boolean
+        parse_sig:
+          type: boolean
+          description: Whether email signatures are parsed.
+        process_attachments:
+          type: boolean
+        collect_emails:
+          type: boolean
+        receive_email:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+    CreateMailboxRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        preset:
+          type: string
+        ml_model:
+          type: string
+        has_raw_data:
+          type: boolean
+        parse_sig:
+          type: boolean
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
