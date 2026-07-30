@@ -7,7 +7,20 @@ description: Parsio is an AI-powered document and email parser that extracts str
   create mailboxes (parsers), upload documents and emails for parsing, retrieve the
   extracted structured JSON, and subscribe to webhooks for parsed-data delivery,
   with four extraction engines (template, AI, GPT, and AI OCR).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/parsio.png
 tags:
 - AI
 - Document Parsing
@@ -18,68 +31,86 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: parsio:parsio-mailboxes-api
-  name: Parsio Mailboxes API
-  tags:
-  - Mailboxes
-  - Parsers
-  - Templates
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.parsio.io/public-api/parsio-public-api
-  baseURL: https://api.parsio.io
-  properties:
-  - url: https://help.parsio.io/public-api/parsio-public-api
-    type: Documentation
-  - url: https://help.parsio.io/public-api
-    type: APIReference
-  - url: openapi/parsio-openapi.yml
-    type: OpenAPI
-  - url: collections/parsio.postman_collection.json
-    type: PostmanCollection
-  description: List, retrieve, create, update, and delete mailboxes (parsers), and
-    manage their table fields and parsing templates. Each mailbox represents a
-    configured parser bound to one of Parsio's extraction engines.
 - aid: parsio:parsio-documents-api
   name: Parsio Documents API
-  tags:
-  - Documents
-  - Upload
-  - Parsing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
-  baseURL: https://api.parsio.io
-  properties:
-  - url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
-    type: Documentation
-  - url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
-    type: APIReference
-  - url: openapi/parsio-openapi.yml
-    type: OpenAPI
-  - url: collections/parsio.postman_collection.json
-    type: PostmanCollection
-  description: Upload PDFs and files (synchronously or asynchronously), submit HTML
-    or plain-text documents for parsing, list documents with pagination and filters,
-    retrieve the extracted structured JSON for a document, reparse, and skip
-    documents.
-- aid: parsio:parsio-webhooks-api
-  name: Parsio Webhooks API
-  tags:
-  - Webhooks
-  - Events
-  - Delivery
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Upload, parse, list, and retrieve documents and their parsed data.
   humanURL: https://help.parsio.io/public-api/parsio-public-api
   baseURL: https://api.parsio.io
+  tags:
+  - Documents
   properties:
-  - url: https://help.parsio.io/public-api/parsio-public-api
-    type: Documentation
-  - url: openapi/parsio-openapi.yml
-    type: OpenAPI
-  - url: collections/parsio.postman_collection.json
-    type: PostmanCollection
-  description: List, retrieve, create, update, and delete webhooks bound to a mailbox
-    to receive parsed data in real time. Supported events include doc.parsed,
-    doc.parsed.flat, doc.fail, doc.received, and table.parsed.
+  - type: OpenAPI
+    url: openapi/parsio-documents-api-openapi.yml
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parsio-public-api
+  - type: APIReference
+    url: https://help.parsio.io/public-api
+  - type: PostmanCollection
+    url: collections/parsio.postman_collection.json
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
+  - type: APIReference
+    url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
+- aid: parsio:parsio-mailboxes-api
+  name: Parsio Mailboxes API
+  description: Create and manage mailboxes (parsers) and their table fields.
+  humanURL: https://help.parsio.io/public-api/parsio-public-api
+  baseURL: https://api.parsio.io
+  tags:
+  - Mailboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/parsio-mailboxes-api-openapi.yml
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parsio-public-api
+  - type: APIReference
+    url: https://help.parsio.io/public-api
+  - type: PostmanCollection
+    url: collections/parsio.postman_collection.json
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
+  - type: APIReference
+    url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
+- aid: parsio:parsio-templates-api
+  name: Parsio Templates API
+  description: Manage parsing templates attached to a mailbox.
+  humanURL: https://help.parsio.io/public-api/parsio-public-api
+  baseURL: https://api.parsio.io
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/parsio-templates-api-openapi.yml
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parsio-public-api
+  - type: APIReference
+    url: https://help.parsio.io/public-api
+  - type: PostmanCollection
+    url: collections/parsio.postman_collection.json
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
+  - type: APIReference
+    url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
+- aid: parsio:parsio-webhooks-api
+  name: Parsio Webhooks API
+  description: Manage webhooks for real-time parsed-data delivery.
+  humanURL: https://help.parsio.io/public-api/parsio-public-api
+  baseURL: https://api.parsio.io
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/parsio-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parsio-public-api
+  - type: APIReference
+    url: https://help.parsio.io/public-api
+  - type: PostmanCollection
+    url: collections/parsio.postman_collection.json
+  - type: Documentation
+    url: https://help.parsio.io/public-api/parse-pdf-and-files-using-api-1
+  - type: APIReference
+    url: https://help.parsio.io/public-api/parse-html-and-text-documents-using-api-1
 common:
 - type: AgenticAccess
   url: agentic-access/parsio-agentic-access.yml
