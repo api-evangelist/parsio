@@ -1,0 +1,20 @@
+{
+  "provider": "parsio",
+  "sources": [
+    "parsio-documents-api-openapi.yml",
+    "parsio-mailboxes-api-openapi.yml",
+    "parsio-templates-api-openapi.yml",
+    "parsio-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "parsio-documents-api-openapi.yml",
+    "parsio-mailboxes-api-openapi.yml",
+    "parsio-templates-api-openapi.yml",
+    "parsio-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
