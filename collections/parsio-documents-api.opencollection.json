@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parsio Public Documents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Parse an HTML or text document synchronously.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/doc-sync",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits an HTML or plain-text document and waits for the parsing result. Supply at least one of html or text; if both are present, html takes precedence."
+        },
+        {
+          "info": {
+            "name": "Parse an HTML or text document asynchronously.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/doc",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits an HTML or plain-text document for background parsing and returns immediately with a document ID. Results are delivered via webhooks or retrieved later by document ID."
+        },
+        {
+          "info": {
+            "name": "Upload a file and wait for the parsing result.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/upload-sync",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a single file (PDF, DOCX, image, HTML, JSON, XML, and more) up to 20MB and waits for the parsing result."
+        },
+        {
+          "info": {
+            "name": "Upload a file for asynchronous parsing.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/upload",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a file (up to 50MB, ZIP archives supported) for background parsing and returns immediately. Results are delivered via webhooks or retrieved later by document ID."
+        },
+        {
+          "info": {
+            "name": "List documents.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/docs",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 start date filter."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 end date filter."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Free-text search query."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists documents in a mailbox with pagination and filters."
+        },
+        {
+          "info": {
+            "name": "Skip documents.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/docs/skip",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks multiple documents as skipped."
+        },
+        {
+          "info": {
+            "name": "Get a parsed document.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/docs/:document_id",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Retrieves a document and its extracted structured JSON by ID."
+        },
+        {
+          "info": {
+            "name": "Reparse a document.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/docs/:document_id/parse",
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the document."
+              }
+            ]
+          },
+          "docs": "Reprocesses an existing document with the mailbox's current parser."
+        },
+        {
+          "info": {
+            "name": "Retrieve parsed data.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/parsed",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves the parsed data for a mailbox's documents."
+        },
+        {
+          "info": {
+            "name": "Get collected email addresses.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/emails",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ]
+          },
+          "docs": "Returns the email addresses collected by a mailbox."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

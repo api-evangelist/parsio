@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parsio Public Documents Templates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/templates",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the parsing templates configured for a mailbox."
+        },
+        {
+          "info": {
+            "name": "Get a template.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/templates/:template_id",
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the parsing template."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a parsing template."
+        },
+        {
+          "info": {
+            "name": "Enable templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/enable_many",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Activates multiple parsing templates."
+        },
+        {
+          "info": {
+            "name": "Disable templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/disable_many",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deactivates multiple parsing templates."
+        },
+        {
+          "info": {
+            "name": "Clone templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/templates/clone_many",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Duplicates multiple parsing templates into a target mailbox."
+        },
+        {
+          "info": {
+            "name": "Delete templates.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parsio.io/templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes multiple parsing templates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

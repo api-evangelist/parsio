@@ -1,0 +1,1897 @@
+{
+  "item": [
+    {
+      "id": "a9ce2c5d-4818-4cd7-9e16-5407a1fd5de7",
+      "name": "Documents",
+      "description": {
+        "content": "Upload, parse, list, and retrieve documents and their parsed data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0fea3022-4426-49bb-b66b-3929c014f02c",
+          "name": "Parse an HTML or text document synchronously.",
+          "request": {
+            "name": "Parse an HTML or text document synchronously.",
+            "description": {
+              "content": "Submits an HTML or plain-text document and waits for the parsing result. Supply at least one of html or text; if both are present, html takes precedence.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "doc-sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": true,\n    \"key_1\": 6344,\n    \"key_2\": true,\n    \"key_3\": 6836.024033520158\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "367b70f0-7510-42ae-ac0d-96a47f4e00a6",
+              "name": "The parsed document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "doc-sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": 9767,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": false,\n  \"status\": \"exception\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"2026-01-30T11:00:44.772Z\",\n  \"processed_at\": \"2023-01-08T11:34:44.451Z\",\n  \"json\": {\n    \"key_0\": true,\n    \"key_1\": 5605\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7f5674f-0305-49a1-9003-59921d4492eb",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "doc-sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": 9767,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35f42c35-612d-4003-9786-96ccf0a4f346",
+          "name": "Parse an HTML or text document asynchronously.",
+          "request": {
+            "name": "Parse an HTML or text document asynchronously.",
+            "description": {
+              "content": "Submits an HTML or plain-text document for background parsing and returns immediately with a document ID. Results are delivered via webhooks or retrieved later by document ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "doc"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": true,\n    \"key_1\": 6344,\n    \"key_2\": true,\n    \"key_3\": 6836.024033520158\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "975fc351-ba02-4b48-a0af-db95fb30bcc9",
+              "name": "The accepted document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "doc"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": 9767,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": false,\n  \"status\": \"exception\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"2026-01-30T11:00:44.772Z\",\n  \"processed_at\": \"2023-01-08T11:34:44.451Z\",\n  \"json\": {\n    \"key_0\": true,\n    \"key_1\": 5605\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a9fef4b-81ec-4b21-9eb6-1733e985ba38",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "doc"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"html\": \"<string>\",\n  \"text\": \"<string>\",\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"meta\": {\n    \"key_0\": 9767,\n    \"key_1\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fd976b2-ef17-468d-a904-d6869ebb5c50",
+          "name": "Upload a file and wait for the parsing result.",
+          "request": {
+            "name": "Upload a file and wait for the parsing result.",
+            "description": {
+              "content": "Uploads a single file (PDF, DOCX, image, HTML, JSON, XML, and more) up to 20MB and waits for the parsing result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "upload-sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The file to upload and parse."
+                },
+                {
+                  "key": "meta",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Custom payload as a JSON object or JSON-encoded string."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0eeb09f9-d0e7-4ef0-8239-6962e2604ee5",
+              "name": "The parsed document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "upload-sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload and parse.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom payload as a JSON object or JSON-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "meta",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": false,\n  \"status\": \"exception\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"2026-01-30T11:00:44.772Z\",\n  \"processed_at\": \"2023-01-08T11:34:44.451Z\",\n  \"json\": {\n    \"key_0\": true,\n    \"key_1\": 5605\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4b3759f-6678-44d9-9f64-42616226ed70",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "upload-sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload and parse.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom payload as a JSON object or JSON-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "meta",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6cb20b99-0564-4a9d-8705-7be17166f716",
+          "name": "Upload a file for asynchronous parsing.",
+          "request": {
+            "name": "Upload a file for asynchronous parsing.",
+            "description": {
+              "content": "Uploads a file (up to 50MB, ZIP archives supported) for background parsing and returns immediately. Results are delivered via webhooks or retrieved later by document ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "(Required) The file to upload and parse."
+                },
+                {
+                  "key": "meta",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Custom payload as a JSON object or JSON-encoded string."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95a61739-3892-44c1-b0da-5be70ed2c0fc",
+              "name": "The accepted document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload and parse.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom payload as a JSON object or JSON-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "meta",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": false,\n  \"status\": \"exception\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"2026-01-30T11:00:44.772Z\",\n  \"processed_at\": \"2023-01-08T11:34:44.451Z\",\n  \"json\": {\n    \"key_0\": true,\n    \"key_1\": 5605\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14cbb11d-480b-4878-a9da-a796b94673a5",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The file to upload and parse.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Custom payload as a JSON object or JSON-encoded string.",
+                        "type": "text/plain"
+                      },
+                      "key": "meta",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a828ab4-60da-407f-91e1-d11d87fc5a35",
+          "name": "List documents.",
+          "request": {
+            "name": "List documents.",
+            "description": {
+              "content": "Lists documents in a mailbox with pagination and filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "docs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>",
+                  "description": "ISO 8601 start date filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>",
+                  "description": "ISO 8601 end date filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Free-text search query."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e8d0e44-086b-4979-bfbf-099a1fbaf458",
+              "name": "A paginated list of documents.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "docs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"doc_id\": \"string\",\n    \"parsing_in_progress\": false,\n    \"status\": \"<string>\",\n    \"name\": \"string\",\n    \"content_type\": \"string\",\n    \"created_at\": \"2009-05-19T05:27:52.359Z\",\n    \"processed_at\": \"1993-05-06T01:08:37.696Z\",\n    \"json\": {\n      \"key_0\": true,\n      \"key_1\": true,\n      \"key_2\": 7989.219498102825,\n      \"key_3\": 6602.381655830167\n    }\n  },\n  {\n    \"doc_id\": \"string\",\n    \"parsing_in_progress\": false,\n    \"status\": \"<string>\",\n    \"name\": \"string\",\n    \"content_type\": \"string\",\n    \"created_at\": \"1957-05-20T01:54:24.310Z\",\n    \"processed_at\": \"1968-03-30T00:48:51.849Z\",\n    \"json\": {\n      \"key_0\": 6110.326404250509\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "821232b3-ea23-4520-b2bf-7b62174d1940",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "docs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4c142d7-15d6-4aa8-935e-f7313b9c64cf",
+          "name": "Skip documents.",
+          "request": {
+            "name": "Skip documents.",
+            "description": {
+              "content": "Marks multiple documents as skipped.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "docs",
+                "skip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "724838a6-b531-4fd3-b5ff-28e080748619",
+              "name": "Documents skipped.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "docs",
+                    "skip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2e53a39-c527-4cae-9fef-9e53ae431ae4",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "docs",
+                    "skip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ab3d9b7-a658-4d74-a729-9cef0a976431",
+          "name": "Get a parsed document.",
+          "request": {
+            "name": "Get a parsed document.",
+            "description": {
+              "content": "Retrieves a document and its extracted structured JSON by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "docs",
+                ":document_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_id",
+                  "description": "(Required) The unique identifier of the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91d3ee21-ed48-436a-9186-b11acf89d8de",
+              "name": "The requested document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) The unique identifier of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": true,\n  \"status\": \"<string>\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"1955-07-02T04:25:36.589Z\",\n  \"processed_at\": \"1952-03-31T21:52:46.112Z\",\n  \"json\": {\n    \"key_0\": 6010,\n    \"key_1\": 7822,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac8e41de-5058-4dad-80f5-c44d2a2ccca7",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    ":document_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) The unique identifier of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31bd4cad-aca7-4917-81ef-2c322318df6c",
+          "name": "Reparse a document.",
+          "request": {
+            "name": "Reparse a document.",
+            "description": {
+              "content": "Reprocesses an existing document with the mailbox's current parser.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "docs",
+                ":document_id",
+                "parse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_id",
+                  "description": "(Required) The unique identifier of the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61f3912a-8c4b-4ccd-b3d3-41088665f413",
+              "name": "The reparsed document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    ":document_id",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) The unique identifier of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"doc_id\": \"string\",\n  \"parsing_in_progress\": true,\n  \"status\": \"<string>\",\n  \"name\": \"string\",\n  \"content_type\": \"string\",\n  \"created_at\": \"1955-07-02T04:25:36.589Z\",\n  \"processed_at\": \"1952-03-31T21:52:46.112Z\",\n  \"json\": {\n    \"key_0\": 6010,\n    \"key_1\": 7822,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "310432d1-1c99-46d0-8940-e6c868a072c7",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "docs",
+                    ":document_id",
+                    "parse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_id",
+                      "description": "(Required) The unique identifier of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce7d96ca-2da9-470e-806b-b9ad2fa1fa2f",
+          "name": "Retrieve parsed data.",
+          "request": {
+            "name": "Retrieve parsed data.",
+            "description": {
+              "content": "Retrieves the parsed data for a mailbox's documents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "parsed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ac8d735-7609-48de-b512-bd4ed00e30bd",
+              "name": "Parsed data records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "parsed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": \"string\"\n  },\n  {\n    \"key_0\": 3947,\n    \"key_1\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d89fe14c-1c14-4835-816a-9dc64a35fd20",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "parsed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aef63d3b-9a84-433b-8ee5-c819c1f79c3e",
+          "name": "Get collected email addresses.",
+          "request": {
+            "name": "Get collected email addresses.",
+            "description": {
+              "content": "Returns the email addresses collected by a mailbox.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mailboxes",
+                ":mailbox_id",
+                "emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mailbox_id",
+                  "description": "(Required) The unique identifier of the mailbox (parser)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89ea20ab-1fa4-4342-9c4e-ac90351c9dee",
+              "name": "A list of collected email addresses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"MpuavM8mMMhtQu@HcXUPzowXzdOMKoNmXRQkeNyBzxoHvWb.bcn\",\n  \"6sO@UUbhJpRzpabMeLBYxeXYaqm.ys\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f01e782d-ef0c-4613-90a7-2f551b21827f",
+              "name": "API key missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mailboxes",
+                    ":mailbox_id",
+                    "emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mailbox_id",
+                      "description": "(Required) The unique identifier of the mailbox (parser)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.parsio.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3aa0666b-4958-4572-9099-f001732f01f3",
+    "name": "Parsio Public Documents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.\n\nContact Support:\n Name: Parsio Support",
+      "type": "text/plain"
+    }
+  }
+}

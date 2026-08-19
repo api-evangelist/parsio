@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parsio Public Documents Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks for a mailbox.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/webhooks/mb/:mailbox_id",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ]
+          },
+          "docs": "Lists the webhooks configured for a mailbox."
+        },
+        {
+          "info": {
+            "name": "Get a webhook.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a webhook."
+        },
+        {
+          "info": {
+            "name": "Create a webhook.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/webhooks/:mailbox_id",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a webhook bound to a mailbox for real-time parsed-data delivery."
+        },
+        {
+          "info": {
+            "name": "Update a webhook.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook identified by its _id."
+        },
+        {
+          "info": {
+            "name": "Delete webhooks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parsio.io/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes multiple webhooks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

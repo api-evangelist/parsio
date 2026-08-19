@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Parsio Public Documents Mailboxes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{X-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mailboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all mailboxes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes"
+          },
+          "docs": "Retrieves all mailboxes (parsers) for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Create a new mailbox.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new mailbox (parser) bound to a parsing engine and preset."
+        },
+        {
+          "info": {
+            "name": "Get a mailbox.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ]
+          },
+          "docs": "Fetches the settings of a specific mailbox by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a mailbox.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing mailbox."
+        },
+        {
+          "info": {
+            "name": "Delete a mailbox.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ]
+          },
+          "docs": "Removes a mailbox and its associated configuration."
+        },
+        {
+          "info": {
+            "name": "List table fields.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.parsio.io/mailboxes/:mailbox_id/tableFields",
+            "params": [
+              {
+                "name": "mailbox_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the mailbox (parser)."
+              }
+            ]
+          },
+          "docs": "Lists the table fields configured for a mailbox."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
