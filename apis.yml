@@ -22,6 +22,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/parsio.png
 tags:
+- Artificial Intelligence
+- Document Parsing
+- Email Parsing
+- OCR
+- Data Extraction
+tags_raw:
 - AI
 - Document Parsing
 - Email Parsing
@@ -97,6 +103,8 @@ apis:
   humanURL: https://help.parsio.io/public-api/parsio-public-api
   baseURL: https://api.parsio.io
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
