@@ -7,6 +7,18 @@ description: Parsio is an AI-powered document and email parser that extracts str
   create mailboxes (parsers), upload documents and emails for parsing, retrieve the
   extracted structured JSON, and subscribe to webhooks for parsed-data delivery,
   with four extraction engines (template, AI, GPT, and AI OCR).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
