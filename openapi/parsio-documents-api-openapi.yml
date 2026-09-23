@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Parsio Public Documents API
   description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
@@ -22,7 +22,7 @@ paths:
       operationId: parseDocumentSync
       tags:
       - Documents
-      summary: Parse an HTML or text document synchronously.
+      summary: Parse an HTML or text document synchronously
       description: Submits an HTML or plain-text document and waits for the parsing result. Supply at least one of html or text; if both are present, html takes precedence.
       requestBody:
         required: true
@@ -46,7 +46,7 @@ paths:
       operationId: parseDocumentAsync
       tags:
       - Documents
-      summary: Parse an HTML or text document asynchronously.
+      summary: Parse an HTML or text document asynchronously
       description: Submits an HTML or plain-text document for background parsing and returns immediately with a document ID. Results are delivered via webhooks or retrieved later by document ID.
       requestBody:
         required: true
@@ -70,7 +70,7 @@ paths:
       operationId: uploadFileSync
       tags:
       - Documents
-      summary: Upload a file and wait for the parsing result.
+      summary: Upload a file and wait for the parsing result
       description: Uploads a single file (PDF, DOCX, image, HTML, JSON, XML, and more) up to 20MB and waits for the parsing result.
       requestBody:
         required: true
@@ -94,7 +94,7 @@ paths:
       operationId: uploadFileAsync
       tags:
       - Documents
-      summary: Upload a file for asynchronous parsing.
+      summary: Upload a file for asynchronous parsing
       description: Uploads a file (up to 50MB, ZIP archives supported) for background parsing and returns immediately. Results are delivered via webhooks or retrieved later by document ID.
       requestBody:
         required: true
@@ -118,7 +118,7 @@ paths:
       operationId: listDocuments
       tags:
       - Documents
-      summary: List documents.
+      summary: List documents
       description: Lists documents in a mailbox with pagination and filters.
       parameters:
       - name: page
@@ -169,7 +169,7 @@ paths:
       operationId: skipDocuments
       tags:
       - Documents
-      summary: Skip documents.
+      summary: Skip documents
       description: Marks multiple documents as skipped.
       requestBody:
         required: true
@@ -189,7 +189,7 @@ paths:
       operationId: getDocument
       tags:
       - Documents
-      summary: Get a parsed document.
+      summary: Get a parsed document
       description: Retrieves a document and its extracted structured JSON by ID.
       responses:
         '200':
@@ -207,7 +207,7 @@ paths:
       operationId: reparseDocument
       tags:
       - Documents
-      summary: Reparse a document.
+      summary: Reparse a document
       description: Reprocesses an existing document with the mailbox's current parser.
       responses:
         '200':
@@ -225,7 +225,7 @@ paths:
       operationId: getParsedData
       tags:
       - Documents
-      summary: Retrieve parsed data.
+      summary: Retrieve parsed data
       description: Retrieves the parsed data for a mailbox's documents.
       parameters:
       - name: page
@@ -261,7 +261,7 @@ paths:
       operationId: listCollectedEmails
       tags:
       - Documents
-      summary: Get collected email addresses.
+      summary: Get collected email addresses
       description: Returns the email addresses collected by a mailbox.
       responses:
         '200':
@@ -276,21 +276,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      description: The unique identifier of the document.
-      schema:
-        type: string
   schemas:
     Document:
       type: object
@@ -315,13 +300,25 @@ components:
           type: object
           description: The extracted structured data.
           additionalProperties: true
-    Error:
+    IdsRequest:
       type: object
+      required:
+      - ids
       properties:
-        error:
-          type: string
-        message:
-          type: string
+        ids:
+          type: array
+          items:
+            type: string
+    DocumentStatus:
+      type: string
+      enum:
+      - new
+      - parsing
+      - parsed
+      - fail
+      - skipped
+      - quota
+      - exception
     ParseDocumentRequest:
       type: object
       properties:
@@ -344,15 +341,13 @@ components:
           type: object
           description: Custom metadata returned in the response as __meta__.
           additionalProperties: true
-    IdsRequest:
+    Error:
       type: object
-      required:
-      - ids
       properties:
-        ids:
-          type: array
-          items:
-            type: string
+        error:
+          type: string
+        message:
+          type: string
     UploadFileRequest:
       type: object
       required:
@@ -365,16 +360,21 @@ components:
         meta:
           type: string
           description: Custom payload as a JSON object or JSON-encoded string.
-    DocumentStatus:
-      type: string
-      enum:
-      - new
-      - parsing
-      - parsed
-      - fail
-      - skipped
-      - quota
-      - exception
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: The unique identifier of the document.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.

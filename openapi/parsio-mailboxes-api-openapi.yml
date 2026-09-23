@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Parsio Public Documents Mailboxes API
+  title: Parsio Public Mailboxes API
   description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
   termsOfService: https://parsio.io/terms/
   contact:
@@ -20,7 +20,7 @@ paths:
       operationId: listMailboxes
       tags:
       - Mailboxes
-      summary: List all mailboxes.
+      summary: List all mailboxes
       description: Retrieves all mailboxes (parsers) for the authenticated account.
       responses:
         '200':
@@ -38,7 +38,7 @@ paths:
       operationId: createMailbox
       tags:
       - Mailboxes
-      summary: Create a new mailbox.
+      summary: Create a new mailbox
       description: Creates a new mailbox (parser) bound to a parsing engine and preset.
       requestBody:
         required: true
@@ -62,7 +62,7 @@ paths:
       operationId: getMailbox
       tags:
       - Mailboxes
-      summary: Get a mailbox.
+      summary: Get a mailbox
       description: Fetches the settings of a specific mailbox by its ID.
       responses:
         '200':
@@ -77,7 +77,7 @@ paths:
       operationId: updateMailbox
       tags:
       - Mailboxes
-      summary: Update a mailbox.
+      summary: Update a mailbox
       description: Updates the configuration of an existing mailbox.
       requestBody:
         required: true
@@ -98,7 +98,7 @@ paths:
       operationId: deleteMailbox
       tags:
       - Mailboxes
-      summary: Delete a mailbox.
+      summary: Delete a mailbox
       description: Removes a mailbox and its associated configuration.
       responses:
         '200':
@@ -112,7 +112,7 @@ paths:
       operationId: listTableFields
       tags:
       - Mailboxes
-      summary: List table fields.
+      summary: List table fields
       description: Lists the table fields configured for a mailbox.
       responses:
         '200':
@@ -126,50 +126,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
   schemas:
-    UpdateMailboxRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        email_prefix:
-          type: string
-        process_attachments:
-          type: boolean
-        collect_emails:
-          type: boolean
-        alert_email_h:
-          type: boolean
-        receive_email:
-          type: boolean
-        preset:
-          type: string
-        ml_model:
-          type: string
-    TableField:
-      type: object
-      properties:
-        _id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
     Mailbox:
       type: object
       properties:
@@ -200,6 +157,41 @@ components:
         created_at:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    UpdateMailboxRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email_prefix:
+          type: string
+        process_attachments:
+          type: boolean
+        collect_emails:
+          type: boolean
+        alert_email_h:
+          type: boolean
+        receive_email:
+          type: boolean
+        preset:
+          type: string
+        ml_model:
+          type: string
+    TableField:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
     CreateMailboxRequest:
       type: object
       required:
@@ -215,6 +207,14 @@ components:
           type: boolean
         parse_sig:
           type: boolean
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.

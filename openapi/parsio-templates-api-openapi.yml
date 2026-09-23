@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Parsio Public Documents Templates API
+  title: Parsio Public Templates API
   description: Specification of the Parsio public REST API for AI-powered document and email parsing. Create and manage mailboxes (parsers), upload documents and emails for parsing, retrieve extracted structured JSON, manage parsing templates, and configure webhooks for real-time parsed-data delivery. All endpoints require an API key supplied via the X-API-Key request header.
   termsOfService: https://parsio.io/terms/
   contact:
@@ -22,7 +22,7 @@ paths:
       operationId: listTemplates
       tags:
       - Templates
-      summary: List templates.
+      summary: List templates
       description: Lists the parsing templates configured for a mailbox.
       parameters:
       - name: page
@@ -47,7 +47,7 @@ paths:
       operationId: getTemplate
       tags:
       - Templates
-      summary: Get a template.
+      summary: Get a template
       description: Retrieves the details of a parsing template.
       responses:
         '200':
@@ -63,7 +63,7 @@ paths:
       operationId: enableTemplates
       tags:
       - Templates
-      summary: Enable templates.
+      summary: Enable templates
       description: Activates multiple parsing templates.
       requestBody:
         required: true
@@ -81,7 +81,7 @@ paths:
       operationId: disableTemplates
       tags:
       - Templates
-      summary: Disable templates.
+      summary: Disable templates
       description: Deactivates multiple parsing templates.
       requestBody:
         required: true
@@ -99,7 +99,7 @@ paths:
       operationId: cloneTemplates
       tags:
       - Templates
-      summary: Clone templates.
+      summary: Clone templates
       description: Duplicates multiple parsing templates into a target mailbox.
       requestBody:
         required: true
@@ -124,7 +124,7 @@ paths:
       operationId: deleteTemplates
       tags:
       - Templates
-      summary: Delete templates.
+      summary: Delete templates
       description: Removes multiple parsing templates.
       requestBody:
         required: true
@@ -139,13 +139,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
     TemplateId:
       name: template_id
       in: path
@@ -153,14 +146,14 @@ components:
       description: The unique identifier of the parsing template.
       schema:
         type: string
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
     Template:
       type: object
       properties:
@@ -181,6 +174,13 @@ components:
           type: array
           items:
             type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.
