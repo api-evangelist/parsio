@@ -117,13 +117,37 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: The unique identifier of the webhook.
+      schema:
+        type: string
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
   schemas:
-    CreateWebhookRequest:
+    WebhookEvent:
+      type: string
+      enum:
+      - doc.parsed
+      - doc.parsed.flat
+      - doc.fail
+      - doc.received
+      - table.parsed
+    UpdateWebhookRequest:
       type: object
       required:
-      - url
-      - event
+      - _id
       properties:
+        _id:
+          type: string
         name:
           type: string
         url:
@@ -144,6 +168,13 @@ components:
           type: array
           items:
             type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     Webhook:
       type: object
       properties:
@@ -160,20 +191,12 @@ components:
           type: boolean
         table_id:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-    UpdateWebhookRequest:
+    CreateWebhookRequest:
       type: object
       required:
-      - _id
+      - url
+      - event
       properties:
-        _id:
-          type: string
         name:
           type: string
         url:
@@ -185,29 +208,6 @@ components:
           type: boolean
         table_id:
           type: string
-    WebhookEvent:
-      type: string
-      enum:
-      - doc.parsed
-      - doc.parsed.flat
-      - doc.fail
-      - doc.received
-      - table.parsed
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
-    WebhookId:
-      name: webhook_id
-      in: path
-      required: true
-      description: The unique identifier of the webhook.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.

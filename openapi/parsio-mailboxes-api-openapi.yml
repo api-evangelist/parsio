@@ -127,6 +127,21 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    CreateMailboxRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        preset:
+          type: string
+        ml_model:
+          type: string
+        has_raw_data:
+          type: boolean
+        parse_sig:
+          type: boolean
     Mailbox:
       type: object
       properties:
@@ -157,13 +172,6 @@ components:
         created_at:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
     UpdateMailboxRequest:
       type: object
       properties:
@@ -183,6 +191,13 @@ components:
           type: string
         ml_model:
           type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     TableField:
       type: object
       properties:
@@ -192,21 +207,13 @@ components:
           type: string
         type:
           type: string
-    CreateMailboxRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        preset:
-          type: string
-        ml_model:
-          type: string
-        has_raw_data:
-          type: boolean
-        parse_sig:
-          type: boolean
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     MailboxId:
       name: mailbox_id
@@ -215,13 +222,6 @@ components:
       description: The unique identifier of the mailbox (parser).
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

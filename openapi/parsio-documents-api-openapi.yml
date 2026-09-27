@@ -277,6 +277,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    ParseDocumentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Document identifier or subject line.
+        html:
+          type: string
+          description: HTML markup to parse. Takes precedence over text when both are supplied.
+        text:
+          type: string
+          description: Plain-text content to parse.
+        from:
+          type: string
+          description: Sender address.
+        to:
+          type: string
+          description: Recipient address.
+        meta:
+          type: object
+          description: Custom metadata returned in the response as __meta__.
+          additionalProperties: true
     Document:
       type: object
       properties:
@@ -300,6 +322,13 @@ components:
           type: object
           description: The extracted structured data.
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     IdsRequest:
       type: object
       required:
@@ -309,45 +338,6 @@ components:
           type: array
           items:
             type: string
-    DocumentStatus:
-      type: string
-      enum:
-      - new
-      - parsing
-      - parsed
-      - fail
-      - skipped
-      - quota
-      - exception
-    ParseDocumentRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Document identifier or subject line.
-        html:
-          type: string
-          description: HTML markup to parse. Takes precedence over text when both are supplied.
-        text:
-          type: string
-          description: Plain-text content to parse.
-        from:
-          type: string
-          description: Sender address.
-        to:
-          type: string
-          description: Recipient address.
-        meta:
-          type: object
-          description: Custom metadata returned in the response as __meta__.
-          additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
     UploadFileRequest:
       type: object
       required:
@@ -360,6 +350,23 @@ components:
         meta:
           type: string
           description: Custom payload as a JSON object or JSON-encoded string.
+    DocumentStatus:
+      type: string
+      enum:
+      - new
+      - parsing
+      - parsed
+      - fail
+      - skipped
+      - quota
+      - exception
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     MailboxId:
       name: mailbox_id
@@ -375,13 +382,6 @@ components:
       description: The unique identifier of the document.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
