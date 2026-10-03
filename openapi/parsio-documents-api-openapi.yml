@@ -276,6 +276,28 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: The unique identifier of the document.
+      schema:
+        type: string
   schemas:
     ParseDocumentRequest:
       type: object
@@ -299,6 +321,13 @@ components:
           type: object
           description: Custom metadata returned in the response as __meta__.
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     Document:
       type: object
       properties:
@@ -322,22 +351,6 @@ components:
           type: object
           description: The extracted structured data.
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-    IdsRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
     UploadFileRequest:
       type: object
       required:
@@ -350,6 +363,15 @@ components:
         meta:
           type: string
           description: Custom payload as a JSON object or JSON-encoded string.
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
     DocumentStatus:
       type: string
       enum:
@@ -360,28 +382,6 @@ components:
       - skipped
       - quota
       - exception
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      description: The unique identifier of the document.
-      schema:
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

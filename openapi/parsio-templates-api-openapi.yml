@@ -146,13 +146,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    TemplateId:
-      name: template_id
-      in: path
-      required: true
-      description: The unique identifier of the parsing template.
-      schema:
-        type: string
     MailboxId:
       name: mailbox_id
       in: path
@@ -160,17 +153,20 @@ components:
       description: The unique identifier of the mailbox (parser).
       schema:
         type: string
+    TemplateId:
+      name: template_id
+      in: path
+      required: true
+      description: The unique identifier of the parsing template.
+      schema:
+        type: string
   schemas:
-    Template:
+    Error:
       type: object
       properties:
-        _id:
+        error:
           type: string
-        name:
-          type: string
-        enabled:
-          type: boolean
-        mailbox_id:
+        message:
           type: string
     IdsRequest:
       type: object
@@ -181,12 +177,16 @@ components:
           type: array
           items:
             type: string
-    Error:
+    Template:
       type: object
       properties:
-        error:
+        _id:
           type: string
-        message:
+        name:
+          type: string
+        enabled:
+          type: boolean
+        mailbox_id:
           type: string
   securitySchemes:
     ApiKeyAuth:

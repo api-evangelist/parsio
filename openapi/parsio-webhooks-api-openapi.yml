@@ -117,21 +117,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    WebhookId:
-      name: webhook_id
-      in: path
-      required: true
-      description: The unique identifier of the webhook.
-      schema:
-        type: string
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     WebhookEvent:
       type: string
@@ -159,37 +151,12 @@ components:
           type: boolean
         table_id:
           type: string
-    IdsRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
     Error:
       type: object
       properties:
         error:
           type: string
         message:
-          type: string
-    Webhook:
-      type: object
-      properties:
-        _id:
-          type: string
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        event:
-          $ref: '#/components/schemas/WebhookEvent'
-        enabled:
-          type: boolean
-        table_id:
           type: string
     CreateWebhookRequest:
       type: object
@@ -208,13 +175,46 @@ components:
           type: boolean
         table_id:
           type: string
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    Webhook:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        event:
+          $ref: '#/components/schemas/WebhookEvent'
+        enabled:
+          type: boolean
+        table_id:
+          type: string
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    WebhookId:
+      name: webhook_id
+      in: path
+      required: true
+      description: The unique identifier of the webhook.
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
