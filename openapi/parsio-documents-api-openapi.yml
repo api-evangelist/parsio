@@ -276,29 +276,45 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      description: The unique identifier of the document.
-      schema:
-        type: string
   schemas:
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    UploadFileRequest:
+      type: object
+      required:
+      - file
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The file to upload and parse.
+        meta:
+          type: string
+          description: Custom payload as a JSON object or JSON-encoded string.
+    DocumentStatus:
+      type: string
+      enum:
+      - new
+      - parsing
+      - parsed
+      - fail
+      - skipped
+      - quota
+      - exception
     ParseDocumentRequest:
       type: object
       properties:
@@ -321,13 +337,6 @@ components:
           type: object
           description: Custom metadata returned in the response as __meta__.
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
     Document:
       type: object
       properties:
@@ -351,37 +360,28 @@ components:
           type: object
           description: The extracted structured data.
           additionalProperties: true
-    UploadFileRequest:
-      type: object
-      required:
-      - file
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The file to upload and parse.
-        meta:
-          type: string
-          description: Custom payload as a JSON object or JSON-encoded string.
-    IdsRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-    DocumentStatus:
-      type: string
-      enum:
-      - new
-      - parsing
-      - parsed
-      - fail
-      - skipped
-      - quota
-      - exception
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: The unique identifier of the document.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

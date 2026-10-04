@@ -126,52 +126,25 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
   schemas:
-    CreateMailboxRequest:
+    UpdateMailboxRequest:
       type: object
-      required:
-      - name
       properties:
         name:
           type: string
+        email_prefix:
+          type: string
+        process_attachments:
+          type: boolean
+        collect_emails:
+          type: boolean
+        alert_email_h:
+          type: boolean
+        receive_email:
+          type: boolean
         preset:
           type: string
         ml_model:
-          type: string
-        has_raw_data:
-          type: boolean
-        parse_sig:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-    TableField:
-      type: object
-      properties:
-        _id:
-          type: string
-        name:
-          type: string
-        type:
           type: string
     Mailbox:
       type: object
@@ -203,25 +176,52 @@ components:
         created_at:
           type: string
           format: date-time
-    UpdateMailboxRequest:
+    TableField:
       type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+    CreateMailboxRequest:
+      type: object
+      required:
+      - name
       properties:
         name:
           type: string
-        email_prefix:
-          type: string
-        process_attachments:
-          type: boolean
-        collect_emails:
-          type: boolean
-        alert_email_h:
-          type: boolean
-        receive_email:
-          type: boolean
         preset:
           type: string
         ml_model:
           type: string
+        has_raw_data:
+          type: boolean
+        parse_sig:
+          type: boolean
+  parameters:
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

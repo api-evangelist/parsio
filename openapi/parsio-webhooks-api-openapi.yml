@@ -117,26 +117,18 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    WebhookEvent:
-      type: string
-      enum:
-      - doc.parsed
-      - doc.parsed.flat
-      - doc.fail
-      - doc.received
-      - table.parsed
-    UpdateWebhookRequest:
+    IdsRequest:
       type: object
       required:
-      - _id
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+    Webhook:
+      type: object
       properties:
         _id:
           type: string
@@ -175,17 +167,10 @@ components:
           type: boolean
         table_id:
           type: string
-    IdsRequest:
+    UpdateWebhookRequest:
       type: object
       required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-    Webhook:
-      type: object
+      - _id
       properties:
         _id:
           type: string
@@ -200,6 +185,14 @@ components:
           type: boolean
         table_id:
           type: string
+    WebhookEvent:
+      type: string
+      enum:
+      - doc.parsed
+      - doc.parsed.flat
+      - doc.fail
+      - doc.received
+      - table.parsed
   parameters:
     MailboxId:
       name: mailbox_id
@@ -215,6 +208,13 @@ components:
       description: The unique identifier of the webhook.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
