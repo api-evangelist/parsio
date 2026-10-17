@@ -277,15 +277,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    IdsRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
     Error:
       type: object
       properties:
@@ -293,28 +284,6 @@ components:
           type: string
         message:
           type: string
-    UploadFileRequest:
-      type: object
-      required:
-      - file
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The file to upload and parse.
-        meta:
-          type: string
-          description: Custom payload as a JSON object or JSON-encoded string.
-    DocumentStatus:
-      type: string
-      enum:
-      - new
-      - parsing
-      - parsed
-      - fail
-      - skipped
-      - quota
-      - exception
     ParseDocumentRequest:
       type: object
       properties:
@@ -337,6 +306,28 @@ components:
           type: object
           description: Custom metadata returned in the response as __meta__.
           additionalProperties: true
+    UploadFileRequest:
+      type: object
+      required:
+      - file
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The file to upload and parse.
+        meta:
+          type: string
+          description: Custom payload as a JSON object or JSON-encoded string.
+    DocumentStatus:
+      type: string
+      enum:
+      - new
+      - parsing
+      - parsed
+      - fail
+      - skipped
+      - quota
+      - exception
     Document:
       type: object
       properties:
@@ -360,21 +351,15 @@ components:
           type: object
           description: The extracted structured data.
           additionalProperties: true
-  parameters:
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
-    DocumentId:
-      name: document_id
-      in: path
-      required: true
-      description: The unique identifier of the document.
-      schema:
-        type: string
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.
@@ -382,6 +367,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    DocumentId:
+      name: document_id
+      in: path
+      required: true
+      description: The unique identifier of the document.
+      schema:
+        type: string
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

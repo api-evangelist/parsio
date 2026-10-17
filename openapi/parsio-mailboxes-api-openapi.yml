@@ -127,6 +127,30 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    TableField:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    CreateMailboxRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        preset:
+          type: string
+        ml_model:
+          type: string
+        has_raw_data:
+          type: boolean
+        parse_sig:
+          type: boolean
     UpdateMailboxRequest:
       type: object
       properties:
@@ -176,15 +200,6 @@ components:
         created_at:
           type: string
           format: date-time
-    TableField:
-      type: object
-      properties:
-        _id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
     Error:
       type: object
       properties:
@@ -192,21 +207,13 @@ components:
           type: string
         message:
           type: string
-    CreateMailboxRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        preset:
-          type: string
-        ml_model:
-          type: string
-        has_raw_data:
-          type: boolean
-        parse_sig:
-          type: boolean
+  responses:
+    Unauthorized:
+      description: API key missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     MailboxId:
       name: mailbox_id
@@ -215,13 +222,6 @@ components:
       description: The unique identifier of the mailbox (parser).
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: API key missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

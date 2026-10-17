@@ -138,31 +138,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    TemplateId:
-      name: template_id
-      in: path
-      required: true
-      description: The unique identifier of the parsing template.
-      schema:
-        type: string
-    MailboxId:
-      name: mailbox_id
-      in: path
-      required: true
-      description: The unique identifier of the mailbox (parser).
-      schema:
-        type: string
   schemas:
-    IdsRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
     Error:
       type: object
       properties:
@@ -181,6 +157,15 @@ components:
           type: boolean
         mailbox_id:
           type: string
+    IdsRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
   responses:
     Unauthorized:
       description: API key missing or invalid.
@@ -188,6 +173,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    TemplateId:
+      name: template_id
+      in: path
+      required: true
+      description: The unique identifier of the parsing template.
+      schema:
+        type: string
+    MailboxId:
+      name: mailbox_id
+      in: path
+      required: true
+      description: The unique identifier of the mailbox (parser).
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
